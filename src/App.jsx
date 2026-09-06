@@ -404,20 +404,51 @@ function App() {
             </div>
           </section>
 
-          <footer>
-            <div>
-              <h2>SAATHI</h2>
-              <p>
-                Connecting communities with trusted local
-                service professionals.
-              </p>
-            </div>
+          <footer className="footer">
+  <div className="footer-content">
 
-            <div>
-              <p>© 2026 SAATHI</p>
-              <p>Smart India Hackathon</p>
-            </div>
-          </footer>
+    <div className="footer-brand">
+      <h2 className="footer-logo">SAATHI</h2>
+      <p className="footer-tagline">
+        Community powered services
+      </p>
+      <p className="footer-description">
+        Connecting communities with trusted local service professionals.
+      </p>
+      <span className="footer-badge">
+        Smart India Hackathon 2026
+      </span>
+    </div>
+
+    <div className="footer-column">
+      <h3>Services</h3>
+      <span>Plumbing</span>
+      <span>Cleaning</span>
+      <span>Electrical</span>
+      <span>Carpentry</span>
+    </div>
+
+    <div className="footer-column">
+      <h3>Company</h3>
+      <span>About SAATHI</span>
+      <span>How It Works</span>
+      <span>Contact</span>
+    </div>
+
+    <div className="footer-column">
+      <h3>For Professionals</h3>
+      <span>Join SAATHI</span>
+      <span>Provider Dashboard</span>
+      <span>Partner With Us</span>
+    </div>
+
+  </div>
+
+  <div className="footer-bottom">
+    <p>© 2026 SAATHI</p>
+    <p>Smart India Hackathon</p>
+  </div>
+</footer>
         </>
       )}
 
