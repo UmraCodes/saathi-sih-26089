@@ -372,81 +372,83 @@ function App() {
           </section>
 
           <section className="how-section">
-            <div className="section-heading">
-              <span>HOW IT WORKS</span>
-              <h2>Simple. Trusted. Local.</h2>
-            </div>
+  <div className="section-heading">
+    <span>HOW IT WORKS</span>
+    <h2>Getting help is simple</h2>
+  </div>
 
-            <div className="steps-grid">
-              <div>
-                <b>01</b>
-                <h3>Choose a Service</h3>
-                <p>Select what you need.</p>
-              </div>
+  <div className="steps-grid">
+    <div className="how-step-card">
+      <b>01</b>
+      <h3>Choose a Service</h3>
+      <p>Select the service you need from our local service categories.</p>
+    </div>
 
-              <div>
-                <b>02</b>
-                <h3>Pick a Professional</h3>
-                <p>Compare verified workers.</p>
-              </div>
+    <div className="how-step-card">
+      <b>02</b>
+      <h3>Find a Trusted Provider</h3>
+      <p>Explore verified providers from the cooperative community.</p>
+    </div>
 
-              <div>
-                <b>03</b>
-                <h3>Schedule</h3>
-                <p>Choose your preferred time.</p>
-              </div>
+    <div className="how-step-card">
+      <b>03</b>
+      <h3>Get the Service</h3>
+      <p>Connect with the provider and get your service completed.</p>
+    </div>
+  </div>
+</section>
 
-              <div>
-                <b>04</b>
-                <h3>Relax</h3>
-                <p>We'll take care of the rest.</p>
-              </div>
-            </div>
-          </section>
-
-          <footer className="footer">
+      <footer className="footer">
   <div className="footer-content">
 
     <div className="footer-brand">
       <h2 className="footer-logo">SAATHI</h2>
+
       <p className="footer-tagline">
-        Community powered services
+        Trusted services. Stronger<br />
+        communities.
       </p>
+
       <p className="footer-description">
-        Connecting communities with trusted local service professionals.
+        SAATHI connects customers with trusted local
+        service providers and strengthens cooperative
+        communities.
       </p>
+
       <span className="footer-badge">
-        Smart India Hackathon 2026
+        🛡️ Community Powered
       </span>
     </div>
 
     <div className="footer-column">
-      <h3>Services</h3>
-      <span>Plumbing</span>
-      <span>Cleaning</span>
-      <span>Electrical</span>
-      <span>Carpentry</span>
-    </div>
-
-    <div className="footer-column">
-      <h3>Company</h3>
-      <span>About SAATHI</span>
+      <h3>Platform</h3>
+      <span>Home</span>
+      <span>Services</span>
       <span>How It Works</span>
-      <span>Contact</span>
+      <span>My Bookings</span>
     </div>
 
     <div className="footer-column">
-      <h3>For Professionals</h3>
+      <h3>For Providers</h3>
       <span>Join SAATHI</span>
-      <span>Provider Dashboard</span>
-      <span>Partner With Us</span>
+      <span>Become a Provider</span>
+      <span>Provider Login</span>
+      <span>Community</span>
+    </div>
+
+    <div className="footer-column">
+      <h3>Support</h3>
+      <span>Help Center</span>
+      <span>Contact Us</span>
+      <span>FAQs</span>
+      <span>Privacy Policy</span>
     </div>
 
   </div>
 
   <div className="footer-bottom">
-    <p>© 2026 SAATHI</p>
-    <p>Smart India Hackathon</p>
+    <p>© 2026 SAATHI. All rights reserved.</p>
+    <p>Made for stronger communities 💚</p>
   </div>
 </footer>
         </>
