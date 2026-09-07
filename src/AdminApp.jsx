@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import "./AdminApp.css";
-
+import SmartMatching from "./SmartMatching.jsx";
 const initialRequests = [
   { id: "REQ-2048", name: "Sanjay Kumar", initials: "SK", service: "Electrical", location: "Bhopal, MP", submitted: "12 min ago", experience: "6 years", rating: "4.8", status: "pending", tone: "amber" },
   { id: "REQ-2047", name: "Meena Joshi", initials: "MJ", service: "Home cleaning", location: "Indore, MP", submitted: "48 min ago", experience: "4 years", rating: "4.9", status: "pending", tone: "blue" },
@@ -27,8 +27,8 @@ const navItems = [
   ["workers", "Providers", "♙"],
   ["services", "Members", "◎"],
   ["complaints", "Payouts", "↗"],
+  ["matching", "Smart Matching", "✦"],
 ];
-
 const customerServices = [
   { id: "plumbing", name: "Plumbing", icon: "🔧", description: "Pipes, taps, leaks & bathroom repairs", price: 399 },
   { id: "cleaning", name: "Home cleaning", icon: "🧹", description: "Home, kitchen & deep cleaning", price: 499 },
@@ -78,6 +78,7 @@ function App({ onBack }) {
     workers: ["Worker directory", "Keep track of trusted professionals and their live availability."],
     services: ["Service catalogue", "Manage the categories available to customers in your region."],
     complaints: ["Complaints & support", "Resolve issues quickly and keep every interaction accountable."],
+    matching: ["Smart Matching", "AI-powered provider recommendations and skill-gap analysis."],
   }[activePage];
 
   return (
@@ -108,6 +109,7 @@ function App({ onBack }) {
     {activePage === "workers" && <Workers workers={filteredWorkers} search={search} setSearch={setSearch} onToggle={toggleWorker} />}
     {activePage === "services" && <Services onNotify={notify} />}
     {activePage === "complaints" && <Complaints onNotify={notify} />}
+    {activePage === "matching" && <SmartMatching onNotify={notify} />}
   </div>
 </main>
 
