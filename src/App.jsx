@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import "./App.css";
 import ProviderApp from "./ProviderApp.jsx";
+import AdminApp from "./AdminApp.jsx";
 
 const services = [
   {
@@ -155,6 +156,7 @@ const steps = [
 function App() {
 const [page, setPage] = useState("home");
 const [providerMode, setProviderMode] = useState(false);
+const [adminMode, setAdminMode] = useState(false);
   const [step, setStep] = useState(1);
   const [search, setSearch] = useState("");
   const [loginOpen, setLoginOpen] = useState(false);
@@ -255,6 +257,13 @@ if (providerMode) {
     />
   );
 }
+if (adminMode) {
+  return (
+    <AdminApp
+      onBack={() => setAdminMode(false)}
+    />
+  );
+}
   return (
     <div className="app">
 
@@ -288,6 +297,9 @@ if (providerMode) {
     <button onClick={() => setProviderMode(true)}>
       Provider Dashboard
     </button>
+    <button onClick={() => setAdminMode(true)}>
+  Admin Dashboard
+</button>
 
   </div>
 
