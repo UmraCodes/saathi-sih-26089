@@ -1,0 +1,28 @@
+{
+  "request": {
+    "service": "appliance-repair",
+    "requiredSkills": ["ac-installation", "electrical-wiring"],
+    "location": { "lat": 23.2599, "lng": 77.4126 },
+    "preferredDate": "2026-09-08",
+    "preferredTime": "03:00 PM"
+  },
+  "workers": [
+    {
+      "id": "SA-1082",
+      "name": "Rakesh Yadav",
+      "skills": ["plumbing", "pipe-repair"],
+      "experienceYears": 7,
+      "rating": 4.9,
+      "completedJobs": 142,
+      "location": { "lat": 23.2501, "lng": 77.4012 },
+      "availableSlots": ["2026-09-08|03:00 PM"],
+      "verified": true,
+      "currentJobs": 1
+    }
+  ],
+  "skillGap": {
+    "missingSkills": ["ac-installation", "electrical-wiring"],
+    "suggestedTraining": "AC installation and domestic electrical safety",
+    "teamAssignmentPossible": true
+  }
+}
