@@ -29,6 +29,19 @@ const navItems = [
   ["complaints", "Payouts", "↗"],
 ];
 
+const customerServices = [
+  { id: "plumbing", name: "Plumbing", icon: "🔧", description: "Pipes, taps, leaks & bathroom repairs", price: 399 },
+  { id: "cleaning", name: "Home cleaning", icon: "🧹", description: "Home, kitchen & deep cleaning", price: 499 },
+  { id: "electrical", name: "Electrical", icon: "⚡", description: "Wiring, switches, fans & installation", price: 349 },
+  { id: "carpentry", name: "Carpentry", icon: "🪚", description: "Furniture, doors & woodwork", price: 599 },
+];
+
+const customerProviders = [
+  { name: "Rakesh Yadav", rating: "4.9", experience: "7 years", distance: "1.2 km", speciality: "Leak & pipe specialist", price: 399 },
+  { name: "Pooja Sharma", rating: "4.9", experience: "6 years", distance: "1.1 km", speciality: "Deep cleaning", price: 499 },
+  { name: "Arjun Singh", rating: "4.8", experience: "7 years", distance: "1.3 km", speciality: "Wiring specialist", price: 349 },
+];
+
 function App() {
   const [activePage, setActivePage] = useState("overview");
   const [requests, setRequests] = useState(initialRequests);
@@ -36,6 +49,7 @@ function App() {
   const [search, setSearch] = useState("");
   const [toast, setToast] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [showCustomer, setShowCustomer] = useState(false);
 
   const pendingCount = requests.filter((request) => request.status === "pending").length;
   const filteredWorkers = useMemo(
@@ -59,7 +73,7 @@ function App() {
   };
 
   const pageTitle = {
-    overview: ["Good morning, Vishisht", "Here is what is happening across your community today."],
+    overview: ["Good morning, Admin", "Here is what is happening across your community today."],
     requests: ["Join requests", "Review and verify professionals before they serve the community."],
     workers: ["Worker directory", "Keep track of trusted professionals and their live availability."],
     services: ["Service catalogue", "Manage the categories available to customers in your region."],
@@ -67,25 +81,26 @@ function App() {
   }[activePage];
 
   return (
+    showCustomer ? <CustomerPortal onBack={() => setShowCustomer(false)} /> :
     <div className="admin-shell">
       <aside className={sidebarOpen ? "sidebar open" : "sidebar"}>
-        <div className="brand"><span className="brand-mark">✦</span><span>SAATHI</span><small>ADMIN CONSOLE</small></div>
-        <div className="workspace-switcher"><span>NE</span><div><strong>North End</strong><small>Community workspace</small></div><b>⌄</b></div>
+        <div className="brand"><img className="brand-mark" src="/sih-lightning.svg" alt="SIH" /><span>SAATHI</span><small>ADMIN CONSOLE</small></div>
+        <div className="workspace-switcher"><span>SA</span><div><strong>SAATHI</strong><small>Community workspace</small></div><b>⌄</b></div>
         <div className="workspace-label">WORKSPACE</div>
         <nav>{navItems.map(([id, label, icon]) => <button key={id} className={activePage === id ? "nav-item active" : "nav-item"} onClick={() => setActivePage(id)}><span className="nav-icon">{icon}</span>{label}{id === "requests" && pendingCount > 0 ? <b className="nav-count">{pendingCount}</b> : null}</button>)}</nav>
         <div className="sidebar-bottom">
           <div className="sidebar-section-label">MANAGE</div>
           <button className="manage-link" onClick={() => notify("Insights opened")}>↝ <span>Insights</span></button>
           <button className="manage-link" onClick={() => notify("Settings opened")}>⚙ <span>Settings</span></button>
-          <button className="customer-link" onClick={() => notify("Customer view is coming next in the demo")}>↗ <span>Customer view</span></button>
+          <button className="customer-link" onClick={() => setShowCustomer(true)}>↗ <span>Customer view</span></button>
           <div className="admin-user"><div className="avatar dark">AM</div><div><strong>Ananya Mehra</strong><small>Super admin</small></div><span>•••</span></div>
         </div>
       </aside>
 
       <main className="main-content">
-        <header className="topbar"><button className="mobile-menu" aria-label={sidebarOpen ? "Close menu" : "Open menu"} onClick={() => setSidebarOpen((open) => !open)}><span /><span /><span /></button><div className="crumb"><span>North End</span><b>/</b> <strong>Good morning, Vishisht ✦</strong></div><div className="top-actions"><div className="top-search">⌕ &nbsp; Search anything</div><button className="shortcut">⌘ K</button><button className="icon-button" aria-label="Notifications">♢<i /></button><button className="new-request" onClick={() => notify("New request flow opened")}>+ New request</button></div></header>
+        <header className="topbar"><button className="mobile-menu" aria-label={sidebarOpen ? "Close menu" : "Open menu"} onClick={() => setSidebarOpen((open) => !open)}><span /><span /><span /></button><div className="crumb"><span>SAATHI</span><b>/</b> <strong>Good morning, Admin <img className="inline-mark" src="/sih-lightning.svg" alt="SIH" /></strong></div><div className="top-actions"><div className="top-search">⌕ &nbsp; Search anything</div><button className="shortcut">⌘ K</button><button className="icon-button" aria-label="Notifications">♢<i /></button><button className="new-request" onClick={() => notify("New request flow opened")}>+ New request</button></div></header>
         <div className="content-wrap">
-          <div className="page-heading"><div><span className="eyebrow">MONDAY, 14 OCTOBER 2024</span><h1>{pageTitle[0]} <em>✦</em></h1><p>{pageTitle[1]}</p></div><button className="date-filter">Last 30 days　⌄</button></div>
+          <div className="page-heading"><div><span className="eyebrow">TUESDAY, 08 SEPTEMBER 2026</span><h1>{pageTitle[0]} <img className="heading-mark" src="/sih-lightning.svg" alt="SIH" /></h1><p>{pageTitle[1]}</p></div><button className="date-filter">Last 30 days　⌄</button></div>
 
           {activePage === "overview" && <Overview requests={requests} onRequest={updateRequest} onGo={setActivePage} />}
           {activePage === "requests" && <Requests requests={requests} onRequest={updateRequest} />}
@@ -129,5 +144,34 @@ function PanelHead({ title, meta, action, onAction }) { return <div className="p
 function RequestRow({ request, onAction }) { return <div className="request-row"><div className={`avatar ${request.tone}`}>{request.initials}</div><div className="request-main"><strong>{request.name}</strong><span>{request.service} · {request.experience} experience</span><small>{request.id} · {request.submitted}</small></div><div className="request-rating">★ {request.rating}</div><div className="row-actions"><button className="approve" onClick={() => onAction(request.id, "approved")}>Approve</button><button className="reject" onClick={() => onAction(request.id, "declined")}>Review</button></div></div> }
 function Category({ name, value, percent, color }) { return <div className="category-row"><div><span>{name}</span><b>{value}</b></div><div className="bar"><i className={color} style={{ width: percent }} /></div></div> }
 function Empty({ text }) { return <div className="empty-state">{text}</div> }
+
+function CustomerPortal({ onBack }) {
+  const [step, setStep] = useState(0);
+  const [service, setService] = useState(null);
+  const [provider, setProvider] = useState(null);
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
+  const [address, setAddress] = useState("");
+  const [notes, setNotes] = useState("");
+  const [bookingId, setBookingId] = useState("");
+  const times = ["09:00 AM", "11:00 AM", "01:00 PM", "03:00 PM", "05:00 PM", "07:00 PM"];
+  const chooseService = (item) => { setService(item); setProvider(null); setStep(2); };
+  const confirm = () => { setBookingId(`ST-${Math.floor(10000000 + Math.random() * 90000000)}`); setStep(6); };
+
+  return <div className="customer-portal">
+    <header className="customer-nav"><button className="customer-logo" onClick={onBack}>SAATHI</button><div><span>Trusted community services</span><button onClick={onBack}>Admin console ↗</button></div></header>
+    {step === 0 && <CustomerHome services={customerServices} onSelect={chooseService} />}
+    {step > 0 && step < 6 && <div className="customer-progress"><button onClick={() => step === 1 ? setStep(0) : setStep((current) => current - 1)}>← Back</button><div>{["Service", "Professional", "Schedule", "Address", "Review"].map((label, index) => <span className={step >= index + 1 ? "current" : ""} key={label}><b>{index + 1}</b>{label}</span>)}</div></div>}
+    {step === 2 && <section className="customer-section"><CustomerTitle eyebrow={service.name} title="Choose your professional" copy="Compare verified professionals and pick the one that suits you." /><div className="provider-grid">{customerProviders.map((item) => <article className={provider?.name === item.name ? "provider-card selected" : "provider-card"} key={item.name} onClick={() => setProvider(item)}><div className="provider-top"><div className="provider-avatar">{item.name[0]}</div><div><strong>{item.name}</strong><span>✓ Verified provider</span></div><b>★ {item.rating}</b></div><p>{item.speciality}</p><small>🏆 {item.experience}　📍 {item.distance}</small><footer><strong>₹{item.price}</strong><button onClick={(event) => { event.stopPropagation(); setProvider(item); }}> {provider?.name === item.name ? "Selected ✓" : "Select"}</button></footer></article>)}</div><CustomerActions back={() => setStep(1)} next={() => setStep(3)} disabled={!provider} /></section>}
+    {step === 3 && <section className="customer-section narrow"><CustomerTitle eyebrow="STEP 3" title="When should we come?" copy="Choose your preferred date and time." /><div className="customer-form"><label>Preferred date<input type="date" value={date} onChange={(event) => setDate(event.target.value)} /></label><label>Available time</label><div className="time-pills">{times.map((item) => <button className={time === item ? "selected" : ""} onClick={() => setTime(item)} key={item}>{item}</button>)}</div><CustomerActions back={() => setStep(2)} next={() => setStep(4)} disabled={!date || !time} /></div></section>}
+    {step === 4 && <section className="customer-section narrow"><CustomerTitle eyebrow="STEP 4" title="Where should we come?" copy="Enter the address for your service." /><div className="customer-form"><label>Service address<textarea rows="4" value={address} onChange={(event) => setAddress(event.target.value)} placeholder="House no., street, area, city..." /></label><label>Additional instructions <em>Optional</em><textarea rows="3" value={notes} onChange={(event) => setNotes(event.target.value)} placeholder="Anything the professional should know?" /></label><CustomerActions back={() => setStep(3)} next={() => setStep(5)} disabled={!address.trim()} nextLabel="Review booking →" /></div></section>}
+    {step === 5 && <section className="customer-section narrow"><CustomerTitle eyebrow="ALMOST DONE" title="Review your booking" copy="Everything look good? Confirm your booking." /><div className="booking-summary"><div className="summary-service"><span>{service.icon}</span><div><strong>{service.name}</strong><small>{service.description}</small></div></div><div className="summary-provider"><div className="provider-avatar">{provider.name[0]}</div><div><strong>{provider.name}</strong><small>★ {provider.rating} · {provider.experience}</small></div><b>₹{provider.price}</b></div><dl><div><dt>Date</dt><dd>{date}</dd></div><div><dt>Time</dt><dd>{time}</dd></div><div><dt>Address</dt><dd>{address}</dd></div></dl><div className="summary-total"><span>Estimated total</span><b>₹{provider.price}</b></div></div><CustomerActions back={() => setStep(4)} next={confirm} nextLabel="Confirm booking ✓" /></section>}
+    {step === 6 && <section className="customer-success"><div>✓</div><span>BOOKING CONFIRMED</span><h1>You're all set!</h1><p>Your trusted professional has been successfully booked.</p><article><small>Booking ID</small><strong>{bookingId}</strong><hr /><p><b>{service.icon} {service.name}</b><br />{provider.name} · {date} · {time}</p></article><button onClick={onBack}>Back to admin console</button></section>}
+  </div>;
+}
+
+function CustomerHome({ services, onSelect }) { return <><section className="customer-hero"><div className="customer-hero-copy"><span className="customer-badge">🤝 Community Powered Services</span><h1>Trusted services,<br /><em>right in your<br />community.</em></h1><p>Book verified local professionals for your everyday household and community needs.</p><div className="customer-search"><span>⌕</span><input placeholder="What service do you need?" /><button onClick={() => onSelect(services[0])}>Search</button></div></div><div className="customer-hero-art"><img src="/saathi-hero.png" alt="SAATHI local services" /></div></section><section className="customer-services"><CustomerTitle eyebrow="OUR SERVICES" title="Popular Services" copy="Find trusted professionals for your everyday needs." /><div className="customer-home-grid">{services.map((item) => <article key={item.id} onClick={() => onSelect(item)}><div className="home-service-icon">{item.icon}</div><h3>{item.name}</h3><p>{item.description}</p><footer><strong>From ₹{item.price}</strong><button onClick={() => onSelect(item)}>Book →</button></footer></article>)}</div></section><section className="customer-how"><CustomerTitle eyebrow="HOW IT WORKS" title="Getting help is simple" copy="" /><div><article><b>01</b><h3>Choose a Service</h3><p>Select the service you need from our local service categories.</p></article><article><b>02</b><h3>Find a Trusted Provider</h3><p>Explore verified providers from the cooperative community.</p></article><article><b>03</b><h3>Get the Service</h3><p>Connect with the provider and get your service completed.</p></article></div></section><footer className="customer-footer"><div><strong>SAATHI</strong><h3>Trusted services. Stronger communities.</h3><p>SAATHI connects customers with trusted local service providers and strengthens cooperative communities.</p></div><div><b>Platform</b><span>Home</span><span>Services</span><span>How It Works</span></div><div><b>For Providers</b><span>Join SAATHI</span><span>Become a Provider</span><span>Community</span></div><div><b>Support</b><span>Help Center</span><span>Contact Us</span><span>FAQs</span></div></footer></>; }
+function CustomerTitle({ eyebrow, title, copy }) { return <div className="customer-title"><span>{eyebrow}</span><h1>{title}</h1><p>{copy}</p></div>; }
+function CustomerActions({ back, next, disabled, nextLabel = "Continue →" }) { return <div className="customer-actions"><button onClick={back}>← Back</button><button disabled={disabled} onClick={next}>{nextLabel}</button></div>; }
 
 export default App;
