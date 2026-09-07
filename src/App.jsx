@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import "./App.css";
+import ProviderApp from "./ProviderApp.jsx";
 
 const services = [
   {
@@ -152,7 +153,8 @@ const steps = [
 ];
 
 function App() {
-  const [page, setPage] = useState("home");
+const [page, setPage] = useState("home");
+const [providerMode, setProviderMode] = useState(false);
   const [step, setStep] = useState(1);
   const [search, setSearch] = useState("");
   const [loginOpen, setLoginOpen] = useState(false);
@@ -246,34 +248,50 @@ function App() {
       alert("Please enter a service name.");
     }
   };
-
+if (providerMode) {
+  return (
+    <ProviderApp
+      onBack={() => setProviderMode(false)}
+    />
+  );
+}
   return (
     <div className="app">
 
-      {/* ================= NAVBAR ================= */}
+     {/* ================= NAVBAR ================= */}
 
-      <nav className="navbar">
-        <div className="logo" onClick={goHome}>
-          SAATHI
-        </div>
+<nav className="navbar">
 
-        <div className="nav-links">
-          <button onClick={goHome}>Home</button>
+  <div className="logo" onClick={goHome}>
+    SAATHI
+  </div>
 
-          <button
-            onClick={() => {
-              setPage("booking");
-              setStep(1);
-            }}
-          >
-            My Bookings
-          </button>
+  <div className="nav-links">
 
-          <button onClick={() => setLoginOpen(true)}>
-            Login
-          </button>
-        </div>
-      </nav>
+    <button onClick={goHome}>
+      Home
+    </button>
+
+    <button
+      onClick={() => {
+        setPage("booking");
+        setStep(1);
+      }}
+    >
+      My Bookings
+    </button>
+
+    <button onClick={() => setLoginOpen(true)}>
+      Login
+    </button>
+
+    <button onClick={() => setProviderMode(true)}>
+      Provider Dashboard
+    </button>
+
+  </div>
+
+</nav>
 
       {/* ================= HOME ================= */}
 
